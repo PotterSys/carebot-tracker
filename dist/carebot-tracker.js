@@ -1,4 +1,4 @@
-/*! carebot-tracker - v0.8.0 - 2016-04-07 */
+/*! carebot-tracker - v0.8.0 - 2016-04-21 */
 /*
 * carebot-tracker.js is library that checks if an element is visible on the page
 * and reports it to pym.js.
@@ -120,14 +120,14 @@
      * Tracks how long an element is visible.
      *
      * @class Parent
-     * @param {String} id The id of the element the tracker will watch.
+     * @param {String/Object} id Either the id of the element the tracker will watch, or a DOM element.
      * @param {Function} callback Will be called on every new time bucket.
      * @param {Object} config Configuration to override the default settings.
      */
     lib.VisibilityTracker = function(id, callback, config) {
         var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 50;
 
-        var el = document.getElementById(id);
+        var el = "object" == typeof id && "undefined" != id.nodeName ? id : document.getElementById(id);
         var isVisible = false;
         var timeout;
 
@@ -222,7 +222,9 @@
      */
     lib.ScrollTracker = function(id, callback, config) {
         var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 100;
-        var elt = document.getElementById(id);
+        
+        var elt = "object" == typeof id && "undefined" != id.nodeName ? id : document.getElementById(id);
+        
         var lastPosition = -1;
         var ticking = false;
 
